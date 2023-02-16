@@ -1,0 +1,18 @@
+<body>
+    <h2>{{dumTitle}} 토론</h2>
+    <br>
+    <div class="wrap" style=" overflow: scroll; padding: 1 auto; margin: 1 auto;">
+        <div *ngFor="let chat of chatData" >
+        <div [ngClass]="chat.senderId == userId ? 'chat ch2' : 'chat ch1'">
+            <div class="icon"><i class="fa-solid fa-user"></i></div>
+            <div class="textbox">{{chat.message}}</div>
+        </div>
+        </div>
+    </div>
+        <div class="input-group mb-3" style="height: 50px; ">
+            <input type="text" [(ngModel)]="inputChat" name="" class="form-control" placeholder="" aria-label="채팅을 입력해주세요." aria-describedby="button-addon2">
+            <button (click)="WriteProcess()" class="btn btn-outline-secondary" type="button" id="button-addon2" style="width: 100px"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+</svg></button>
+          </div>
+          <p>돌아가기<a (click)="BackProcess()"> 메인 화면으로</a></p>

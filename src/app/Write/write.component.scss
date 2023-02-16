@@ -1,0 +1,83 @@
+// sets
+
+$gl-ms         : "screen and (max-width: 23.5em)"; // up to 360px
+$gl-xs         : "screen and (max-width: 35.5em)"; // up to 568px
+$gl-sm         : "screen and (max-width: 48em)";   // max 768px
+$gl-md         : "screen and (max-width: 64em)";   // max 1024px
+$gl-lg         : "screen and (max-width: 80em)";   // max 1280px
+
+// table style
+
+input {
+  width:100%;
+  position:relative;
+  margin:0 auto;
+}
+
+div {
+    background: #FFED86;
+}
+
+
+body               { 
+  background:#9BC86A; 
+  font:400 14px 'Calibri','Arial';
+  padding:20px;
+  height: 1000px;
+}
+
+blockquote {
+  color:white;
+  text-align:center;
+}
+
+
+
+ol {
+    counter-reset:li; /* Initiate a counter */
+    margin: 40px; 
+    padding: 0;
+    font-family: sans-serif;
+    width: 800px;
+    li {
+      list-style:none; /* Disable the normal item numbering */
+      position:relative; /* Create a positioning context */
+      margin:0 0 16px 2em; /* Give each list item a left margin to make room for the numbers */
+      padding:6px 18px; /* Add some spacing around the content */
+      background: #FFED86;
+      &:before {
+          content:counter(li); /* Use the counter as content */
+          counter-increment:li; /* Increment the counter by 1 */
+          /* Position and style the number */
+          position:absolute;
+          top: -16px;
+          left: -30px;
+          box-sizing:border-box;
+          width:2em;
+          /* Some space between the number and the content in browsers that support
+             generated content but not positioning it (Camino 2 is one example) */
+          margin-right:8px;
+          color:rgba(237, 65, 87, 1.00);
+          // background:rgba(237, 65, 87, 1.00);
+          font-weight:bold;
+          font-family:"Helvetica Neue", Arial, sans-serif;
+          font-size: 30px;
+          text-align:center;
+      }
+    }
+  }
+  
+  p {
+    font-size: 10px;
+    a {
+      color:rgba(237, 65, 87, 1.00);
+    }
+  }
+
+
+
+h1 {
+    font-weight:bold;
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    font-size: 40px;
+}

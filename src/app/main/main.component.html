@@ -1,0 +1,24 @@
+<body>
+  <div class="input-group mb-3" >
+    <input type="text" [(ngModel)]="filterText" name="filterText"style="border-radius:6px;" class="w-75 p-3" splaceholder="검색하고 싶은 내용을 압력해주세요." aria-label="검색하고 싶은 내용을 압력해주세요." aria-describedby="button-addon2">
+  </div>
+<table>
+    <thead>
+      <tr>
+        <th>제목</th>
+        <th>최초 작성된 날짜</th>
+        <th>마지막 수정 날짜</th>
+        <th>토론</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let document of filteredDocuments" (click)="viewProcess(document.title)">
+        <td>{{document.title}}</td>
+        <td>{{document.createdAt}}</td>
+        <td>{{document.updatedAt}}</td>
+        <td (click)="chatProcess(document.title)">토론</td>
+      </tr>
+    </tbody>
+    </table>
+  <blockquote (click)="writeProcess()"> 새로운 문서 작성하기. </blockquote>
+</body>
