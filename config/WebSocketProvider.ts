@@ -9,8 +9,12 @@ export class WebSocketService {
   private socket: any;
 
   constructor() {
-    this.socket = io.connect('http://localhost:8080/chats');
+    this.socket = io.connect('ws://localhost:8080/chats');
   }
+  joinRoom(roomTitle: string): void {
+    this.socket.emit('joinRoom', roomTitle);
+  }
+
 
   public sendMessage(message: any) {
     this.socket.emit('sendMessage', message);

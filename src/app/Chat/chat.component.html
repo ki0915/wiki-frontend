@@ -1,9 +1,10 @@
 <body>
     <h2>{{dumTitle}} 토론</h2>
     <br>
-    <div class="wrap" style=" overflow: scroll; padding: 1 auto; margin: 1 auto;">
+    <div class="wrap" style=" overflow-Y: scroll; overflow-x: hidden; padding: 1 auto; margin: 1 auto; max-height: 750px;">
         <div *ngFor="let chat of chatData" >
         <div [ngClass]="chat.senderId == userId ? 'chat ch2' : 'chat ch1'">
+            <span>{{chat.senderId}}</span>
             <div class="icon"><i class="fa-solid fa-user"></i></div>
             <div class="textbox">{{chat.message}}</div>
         </div>

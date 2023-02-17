@@ -1,21 +1,26 @@
-import { Component, ElementRef, ViewChild, OnChanges, SimpleChanges  } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import axios from 'axios';
 import { chats } from './chat.model';
 import { WebSocketService } from 'config/WebSocketProvider';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'chat-com',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
+
 export class ChatComponent {
   
-  userId = '기민수';
+  userId = '박종건';
   dumTitle = '';
+
+  
   private _inputChat = '';
 
   chatData : chats[] = [];
+
 
   get inputChat(): string {
     return this._inputChat;
@@ -23,14 +28,15 @@ export class ChatComponent {
   
    set inputChat(v: string) {
     this._inputChat = v;
+    this.ReadProcess();
   }
 
+  private chatSubscription!: Subscription;
 
-  constructor(private router:Router, private route: ActivatedRoute, private wsService: WebSocketService) { this.ReadProcess(); }
+
+  constructor(private router:Router, private route: ActivatedRoute, private wsService: WebSocketService) { }
 
   async ReadProcess (): Promise<void> {
-
-
       this.route.queryParams.subscribe(params => {
         this.dumTitle = params['title'];
       });     
@@ -41,6 +47,7 @@ export class ChatComponent {
       );
     
       this.chatData = data;
+      console.log(1);
 
 }
 
@@ -48,6 +55,7 @@ export class ChatComponent {
   async WriteProcess (): Promise<void> {
     try{
       this.wsService.sendMessage({roomTitle: this.dumTitle, senderId: this.userId, message: this.inputChat});
+      this.ReadProcess();
     } catch(e){
 
     }
@@ -57,7 +65,18 @@ export class ChatComponent {
     this.router.navigate(['/main']);
   }
 
-  public ngOnInit(): void {
-    
+  ngOnInit() {
+    this.ReadProcess();
+    this.wsService.joinRoom(this.dumTitle);
+
+    this.chatSubscription = this.wsService.getMessage().subscribe((message: chats) => {
+      if (message.roomTitle === this.dumTitle) {
+        this.chatData.push(message);
+      }
+    });
+
   }
+
+
+
  }
