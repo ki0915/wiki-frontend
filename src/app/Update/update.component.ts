@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import axios from 'axios';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenService } from '../Login/token.service';
 
 @Component({
   selector: 'update-com',
@@ -98,7 +99,9 @@ export class UpdateComponent {
       this.route.queryParams.subscribe(params => {
         this.dumTitle = params['title'];
       });
-     const { data } =  await axios.post("http://localhost:8080/article", {title: this.dumTitle});
+      const token = this.tokenService.token;
+      const headers = { 'x-auth-token': token };
+     const { data } =  await axios.post("http://localhost:8080/article", {title: this.dumTitle}, {headers});
      this.article1 = data.article1;
      this.article2 = data.article2;
      this.article3 = data.article3;
@@ -117,7 +120,7 @@ export class UpdateComponent {
 }
 
       
-    constructor(private router:Router, private route: ActivatedRoute) { this.ReadProcess(); }
+    constructor(private router:Router, private route: ActivatedRoute, private tokenService: TokenService,) { this.ReadProcess(); }
     backProcess (): void {
         this.router.navigate(['/main'])
     }

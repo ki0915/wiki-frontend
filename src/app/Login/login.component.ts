@@ -1,6 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
 import axios from "axios";
+import { TokenService } from './token.service';
 
 @Component({
   selector: 'login-com',
@@ -50,12 +52,15 @@ set signUpPw(v: string) {
     this._loginPw = v;
   }
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private tokenService: TokenService) { }
 
   
   loginProcess = async () => {
     try {
-      await axios.post("http://localhost:8080/login", { id: this.loginId, password: this.loginPw });
+      const hashLoginPw = CryptoJS.SHA256(this.loginPw).toString();
+      const response = await axios.post("http://localhost:8080/login", { id: this.loginId, password: hashLoginPw });
+      this.tokenService.token = response.data.token;
+      this.tokenService.name = this.loginId;
       this.router.navigate(['/main'])
    }catch (e) {
       if (axios.isAxiosError(e) && e.response) {
@@ -86,7 +91,8 @@ set signUpPw(v: string) {
   async signUpProcess (): Promise<void>{
         alert(this.signUpPw);
         try {
-          await axios.post("http://localhost:8080/signUp", { id: this.signUpId, password: this.signUpPw });
+          const hashSignUpPw = CryptoJS.SHA256(this.signUpPw).toString();
+          await axios.post("http://localhost:8080/signUp", { id: this.signUpId, password: hashSignUpPw });
         }
         catch (e) {
           if (axios.isAxiosError(e) && e.response) {

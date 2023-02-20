@@ -4,6 +4,7 @@ import axios from 'axios';
 import { chats } from './chat.model';
 import { WebSocketService } from 'config/WebSocketProvider';
 import { Subscription } from 'rxjs';
+import { TokenService } from '../Login/token.service';
 
 @Component({
   selector: 'chat-com',
@@ -13,7 +14,7 @@ import { Subscription } from 'rxjs';
 
 export class ChatComponent {
   
-  userId = '박종건';
+  public userId = " ";;
   dumTitle = '';
 
   
@@ -28,33 +29,35 @@ export class ChatComponent {
   
    set inputChat(v: string) {
     this._inputChat = v;
+
     this.ReadProcess();
   }
 
   private chatSubscription!: Subscription;
 
 
-  constructor(private router:Router, private route: ActivatedRoute, private wsService: WebSocketService) { }
+  constructor(private router:Router, private route: ActivatedRoute, private wsService: WebSocketService, private tokenService: TokenService) {  }
 
   async ReadProcess (): Promise<void> {
       this.route.queryParams.subscribe(params => {
         this.dumTitle = params['title'];
       });     
 
+      const token = this.tokenService.token;
+      const headers = { 'x-auth-token': token };
       const { data } = await axios.post<chats[]>(
         'http://localhost:8080/chats/view',   {
-            roomTitle : this.dumTitle }
+            roomTitle : this.dumTitle }, { headers }
       );
     
       this.chatData = data;
-      console.log(1);
 
 }
 
 
   async WriteProcess (): Promise<void> {
     try{
-      this.wsService.sendMessage({roomTitle: this.dumTitle, senderId: this.userId, message: this.inputChat});
+      this.wsService.sendMessage({roomTitle: this.dumTitle, senderId: this.tokenService.name, message: this.inputChat});
       this.ReadProcess();
     } catch(e){
 
@@ -66,6 +69,7 @@ export class ChatComponent {
   }
 
   ngOnInit() {
+    this.userId = this.tokenService.name;
     this.ReadProcess();
     this.wsService.joinRoom(this.dumTitle);
 

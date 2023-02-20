@@ -10,6 +10,7 @@ import { WriteComponent } from './Write/write.component';
 import { UpdateComponent } from './Update/update.component';
 import { ChatComponent } from './Chat/chat.component';
 import { WebSocketService } from 'config/WebSocketProvider';
+import { TokenService } from './Login/token.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { WebSocketService } from 'config/WebSocketProvider';
     AppRoutingModule,
     NgbModule
   ],
-  providers: [WebSocketService],
+  providers: [WebSocketService, TokenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

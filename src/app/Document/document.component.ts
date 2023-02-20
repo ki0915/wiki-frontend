@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import axios from 'axios';
 import { article } from './article.model';
-
+import { TokenService } from "../Login/token.service";
 
 @Component({
   selector: 'document-com',
@@ -26,7 +26,9 @@ export class DocumentComponent {
         this.route.queryParams.subscribe(params => {
           this.dumTitle = params['title'];
         });
-       const { data } =  await axios.post("http://localhost:8080/article", {title: this.dumTitle});
+        const token = this.tokenService.token;
+        const headers = { 'x-auth-token': token };
+       const { data } =  await axios.post("http://localhost:8080/article", {title: this.dumTitle}, {headers});
        this.article1 = data.article1;
        this.article2 = data.article2;
        this.article3 = data.article3;
@@ -45,7 +47,7 @@ export class DocumentComponent {
   }
 
       
-    constructor(private router:Router, private route: ActivatedRoute) { this.ReadProcess() }
+    constructor(private router:Router, private route: ActivatedRoute, private tokenService: TokenService) { this.ReadProcess() }
 
 
     UpdateProcess () : void {

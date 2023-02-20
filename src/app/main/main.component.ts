@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { document } from './document.model';
 import { Router } from '@angular/router';
 import axios from 'axios';
+import { TokenService } from "../Login/token.service";
 
 @Component({
   selector: 'main-com',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
+
 export class MainComponent {
 
     filteredDocuments: document[] = [];
@@ -22,7 +24,7 @@ export class MainComponent {
       this.filteredDocuments = this.performFilter(v);
     }
 
-    constructor(private router:Router) { this.ReadProcess()}
+    constructor(private router:Router, private tokenService: TokenService, ) { this.ReadProcess()}
 
     documents: document[] = [];
 
@@ -47,7 +49,9 @@ export class MainComponent {
     }
 
     async ReadProcess (): Promise<void> {
-       const data = await axios.get("http://localhost:8080/article");
+      const token = this.tokenService.token;
+      const headers = { 'x-auth-token': token };
+       const data = await axios.get("http://localhost:8080/article", {headers});
        this.documents = data.data;
     }
 

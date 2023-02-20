@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
+import { TokenService } from "../Login/token.service";
 
 @Component({
   selector: 'write-com',
@@ -78,7 +79,9 @@ export class WriteComponent {
 
   writeProcess = async () => {
     try {
-      await axios.post("http://localhost:8080/article/post", { title: this.title, article1: this.article1, article2: this.article2, article3: this.article3, article4: this.article4, article5: this.article5, article6: this.article6 });
+      const token = this.tokenService.token;
+      const headers = { 'x-auth-token': token };
+      await axios.post("http://localhost:8080/article/post", { title: this.title, article1: this.article1, article2: this.article2, article3: this.article3, article4: this.article4, article5: this.article5, article6: this.article6 }, {headers} );
    }catch (e) {
       if (axios.isAxiosError(e) && e.response) {
         const { data } = e.response;
@@ -91,7 +94,7 @@ export class WriteComponent {
   }
 
       
-    constructor(private router:Router) { }
+    constructor(private router:Router, private tokenService: TokenService,) { }
     backProcess (): void {
         this.router.navigate(['/main'])
     }
