@@ -20,6 +20,13 @@ export class DocumentComponent {
    article4 ='';
    article5 = '';
    article6 ='';
+
+   oneTitle = '';
+   twoTitle = '';
+   threeTitle = '';
+   fourTitle = '';
+   fiveTitle = '';
+   sixTitle = '';
   
    async ReadProcess (): Promise<void> {
       try {
@@ -35,19 +42,27 @@ export class DocumentComponent {
        this.article4 = data.article4;
        this.article5 = data.article5;
        this.article6 = data.article6;
+
+       this.oneTitle = data.onetitle;
+       this.twoTitle = data.twotitle;
+       this.threeTitle = data.threetitle;
+       this.fourTitle = data.fourtitle;
+       this.fiveTitle = data.fivetitle;
+       this.sixTitle = data.sixtitle;
+
        
     } catch (e) {
       if (axios.isAxiosError(e) && e.response) {
         const { data } = e.response;
         if (data) {
-          alert(data.message);
+          console.log(data.message);
         }
       }
     }
   }
 
       
-    constructor(private router:Router, private route: ActivatedRoute, private tokenService: TokenService) { this.ReadProcess() }
+    constructor(private router:Router, private route: ActivatedRoute, private tokenService: TokenService) { this.ReadProcess(); }
 
 
     UpdateProcess () : void {

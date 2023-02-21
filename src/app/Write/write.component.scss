@@ -23,7 +23,7 @@ body               {
   background:#9BC86A; 
   font:400 14px 'Calibri','Arial';
   padding:20px;
-  height: 1000px;
+  height: 1300px;
 }
 
 blockquote {
@@ -80,4 +80,33 @@ h1 {
     font-weight:bold;
     font-family:"Helvetica Neue", Arial, sans-serif;
     font-size: 40px;
+}
+
+
+.filebox label {
+  display: inline-block;
+  padding: .5em .75em;
+  background-color: #fdfdfd;
+  color: #999;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: .25em;
+}
+
+#input_file {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.smallTitle {
+  margin: 1, auto;
+  height: 50px;
+  width: 300px;
+  padding: 1, auto;
 }

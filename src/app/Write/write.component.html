@@ -7,13 +7,29 @@
 
         </div>
         <ol>
+            <input type="text" class="smallTitle" [(ngModel)]="onetitle" name="onetitle" style="border-radius:6px;">
             <li> <input type="text" [(ngModel)]="article1" name="article1"style="border-radius:6px;" class="w-100 p-3" splaceholder="검색하고 싶은 내용을 압력해주세요." aria-label="검색하고 싶은 내용을 압력해주세요." aria-describedby="button-addon2"></li>
+            <input type="text" class="smallTitle" [(ngModel)]="twotitle" name="twotitle" style="border-radius:6px;">
             <li><input type="text" [(ngModel)]="article2" name="article2"style="border-radius:6px;" class="w-100 p-3" splaceholder="검색하고 싶은 내용을 압력해주세요." aria-label="검색하고 싶은 내용을 압력해주세요." aria-describedby="button-addon2"></li>
+            <input type="text" class="smallTitle" [(ngModel)]="threetitle" name="threetitle" style="border-radius:6px;">
             <li><input type="text"  [(ngModel)]="article3" name="article3"style="border-radius:6px;" class="w-100 p-3" splaceholder="검색하고 싶은 내용을 압력해주세요." aria-label="검색하고 싶은 내용을 압력해주세요." aria-describedby="button-addon2"></li>
+            <input type="text" class="smallTitle" [(ngModel)]="fourtitle" name="fourtitle" style="border-radius:6px;">
             <li><input type="text"  [(ngModel)]="article4" name="article4"style="border-radius:6px;" class="w-100 p-3" splaceholder="검색하고 싶은 내용을 압력해주세요." aria-label="검색하고 싶은 내용을 압력해주세요." aria-describedby="button-addon2"></li>
+            <input type="text" class="smallTitle" [(ngModel)]="fivetitle" name="fivetitle" style="border-radius:6px;">
             <li><input type="text"  [(ngModel)]="article5"name="article5"style="border-radius:6px;" class="w-100 p-3" splaceholder="검색하고 싶은 내용을 압력해주세요." aria-label="검색하고 싶은 내용을 압력해주세요." aria-describedby="button-addon2"></li>
+            <input type="text" class="smallTitle" [(ngModel)]="sixtitle" name="sixtitle" style="border-radius:6px;">
             <li><input type="text"  [(ngModel)]="article6"name="article6"style="border-radius:6px;" class="w-100 p-3" splaceholder="검색하고 싶은 내용을 압력해주세요." aria-label="검색하고 싶은 내용을 압력해주세요." aria-describedby="button-addon2"></li>
           <ol>
+
+        <form>
+        <div class="filebox" enctype="multipart/form-data">
+            <input type="file" (change)="onFlleSelected($event)" />
+            <input type="file" (change)="onImageSelected($event)" >
+        </div>
+    </form>
+
+    
+        
             
 
     <blockquote (click)="backProcess()"> 메인 화면으로 돌아가기 </blockquote>

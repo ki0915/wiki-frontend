@@ -18,6 +18,16 @@ export class WriteComponent {
   private _article5 = '';
   private _article6 = '';
 
+  private _onetitle = '';
+  private _twotitle = '';
+  private _threetitle= '';
+  private _fourtitle = '';
+  private _fivetitle= '';
+  private _sixtitle = '';
+
+  selectedFile? : File;
+  selectedImage?: Blob;
+
   get title(): string {
     return this._title;
   }
@@ -77,16 +87,122 @@ export class WriteComponent {
   }
 
 
+  get onetitle(): string {
+    return this._onetitle;
+  }
+
+
+  set onetitle(v: string) {
+    this._onetitle = v;
+  }
+
+
+  get twotitle(): string {
+    return this._twotitle;
+  }
+
+
+  set twotitle(v: string) {
+    this._twotitle = v;
+  }
+
+  get threetitle(): string {
+    return this._threetitle;
+  }
+
+
+  set threetitle(v: string) {
+    this._threetitle = v;
+  }
+
+
+  get fourtitle(): string {
+    return this._fourtitle;
+  }
+
+  set fourtitle(v: string){
+    this._fourtitle = v;
+  }
+
+
+  set fivetitle(v: string) {
+    this._fivetitle = v;
+  }
+
+
+  get fivetitle(): string {
+    return this._fivetitle;
+  }
+
+  set sixtitle(v: string) {
+    this._sixtitle = v;
+  }
+
+
+  get sixtitle(): string {
+    return this._sixtitle;
+  }
+
+  onFlleSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+
+  }
+
+
+  onImageSelected(event: any): void {
+    this.selectedImage = event.target.files[0];
+
+  }
+
+  
+
   writeProcess = async () => {
     try {
       const token = this.tokenService.token;
-      const headers = { 'x-auth-token': token };
-      await axios.post("http://localhost:8080/article/post", { title: this.title, article1: this.article1, article2: this.article2, article3: this.article3, article4: this.article4, article5: this.article5, article6: this.article6 }, {headers} );
+      const headers = { 'x-auth-token': token, 'Content-Type': 'multipart/form-data',};
+
+      
+      const formData = new FormData();
+      
+
+      if (this.selectedFile && Blob.prototype.isPrototypeOf(this.selectedFile)) {
+        formData.append('file', this.selectedFile, this.selectedFile.name);
+        console.log("성공");
+      } else {
+        console.error('파일이 선택되지 않음.');
+      }
+
+      if (this.selectedImage instanceof File) {
+        formData.append('image', this.selectedImage, this.selectedImage.name);
+        console.log("성공");
+      } else {
+        console.error('이미지가 선택되지 않음.');
+      }
+      
+      formData.append('title', this.title);
+      formData.append('article1', this.article1);
+      formData.append('article2', this.article2);
+      formData.append('article3', this.article3);
+      formData.append('article4', this.article4);
+      formData.append('article5', this.article5);
+      formData.append('article6', this.article6);
+
+      formData.append('onetitle', this.onetitle);
+      formData.append('twotitle', this.twotitle);
+      formData.append('threetitle', this.threetitle);
+      formData.append('fourtitle', this.fourtitle);
+      formData.append('fivetitle', this.fivetitle);
+      formData.append('sixtitle', this.sixtitle);
+      
+
+      const body = { file: formData, };
+     
+      await axios.post("http://localhost:8080/article/post", formData, {headers} );
    }catch (e) {
       if (axios.isAxiosError(e) && e.response) {
         const { data } = e.response;
         if (data) {
-          alert(data.message);
+          alert("싪패");
         }
       }
     }
