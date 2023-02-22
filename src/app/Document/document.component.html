@@ -1,6 +1,13 @@
 <body>
 
 <h1>{{dumTitle}}</h1>
+
+
+<div style="width: 200px; height: 200px; margin: 0, auto; padding: 1; position: relative;">
+  <img style="width: 150px; height: 150px; position: relative;"  [src]="imageUrl">
+</div>
+
+
 <ol>
     <h3>{{oneTitle}}</h3>
     <li>{{article1}}</li>
@@ -15,7 +22,8 @@
     <h3>{{sixTitle}}</h3>
     <li>{{article6}}</li>
   <ol>
-    
+
+    <p>파일 다운로드<a [href]="fileUrl" download="downloaded-filename">파일 다운로드</a></p>
     <p>편집하기<a (click)="UpdateProcess()" >편집 창으로</a></p>
     <p>문서 삭제하기 <a (click)="deleteProcess()">관리저 창으로</a></p>
     <p>돌아가기<a  (click)="BackProcess()" >메인 화면으로</a></p>

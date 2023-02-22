@@ -27,6 +27,9 @@ export class DocumentComponent {
    fourTitle = '';
    fiveTitle = '';
    sixTitle = '';
+
+   fileUrl = '';
+   imageUrl ='';
   
    async ReadProcess (): Promise<void> {
       try {
@@ -36,20 +39,24 @@ export class DocumentComponent {
         const token = this.tokenService.token;
         const headers = { 'x-auth-token': token };
        const { data } =  await axios.post("http://localhost:8080/article", {title: this.dumTitle}, {headers});
-       this.article1 = data.article1;
-       this.article2 = data.article2;
-       this.article3 = data.article3;
-       this.article4 = data.article4;
-       this.article5 = data.article5;
-       this.article6 = data.article6;
+       this.article1 = data.article.article1;
+       this.article2 = data.article.article2;
+       this.article3 = data.article.article3;
+       this.article4 = data.article.article4;
+       this.article5 = data.article.article5;
+       this.article6 = data.article.article6;
+      
+       this.oneTitle = data.article.onetitle;
+       this.twoTitle = data.article.twotitle;
+       this.threeTitle = data.article.threetitle;
+       this.fourTitle = data.article.fourtitle;
+       this.fiveTitle = data.article.fivetitle;
+       this.sixTitle = data.article.sixtitle;
+       
+       this.imageUrl = "http://localhost:8080/" + data.imagePath;
+       this.fileUrl = "http://localhost:8080/" + data.filePath;
 
-       this.oneTitle = data.onetitle;
-       this.twoTitle = data.twotitle;
-       this.threeTitle = data.threetitle;
-       this.fourTitle = data.fourtitle;
-       this.fiveTitle = data.fivetitle;
-       this.sixTitle = data.sixtitle;
-
+       alert(this.imageUrl);
        
     } catch (e) {
       if (axios.isAxiosError(e) && e.response) {
