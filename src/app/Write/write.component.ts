@@ -164,6 +164,13 @@ export class WriteComponent {
       
       const formData = new FormData();
       
+      if(!this.selectedFile && !this.selectedImage)
+      {
+        alert("파일과 이미지는 필수적으로 입력되어야 합니다.");
+        this.router.navigate(['/main'])
+      }
+
+      else {
 
       if (this.selectedFile && Blob.prototype.isPrototypeOf(this.selectedFile)) {
         formData.append('file', this.selectedFile, this.selectedFile.name);
@@ -179,13 +186,14 @@ export class WriteComponent {
         console.error('이미지가 선택되지 않음.');
       }
       
+      
       formData.append('title', this.title);
-      formData.append('article1', this.article1);
-      formData.append('article2', this.article2);
-      formData.append('article3', this.article3);
-      formData.append('article4', this.article4);
-      formData.append('article5', this.article5);
-      formData.append('article6', this.article6);
+      formData.append('article1', this.article1.replace(/\n/g, "<br>"));
+      formData.append('article2', this.article2.replace(/\n/g, "<br>"));
+      formData.append('article3', this.article3.replace(/\n/g, "<br>"));
+      formData.append('article4', this.article4.replace(/\n/g, "<br>"));
+      formData.append('article5', this.article5.replace(/\n/g, "<br>"));
+      formData.append('article6', this.article6.replace(/\n/g, "<br>"));
 
       formData.append('onetitle', this.onetitle);
       formData.append('twotitle', this.twotitle);
@@ -197,7 +205,8 @@ export class WriteComponent {
 
       const body = { file: formData, };
      
-      await axios.post("http://localhost:8080/article/post", formData, {headers} );
+      await axios.post("http://172.30.1.58:8080/article/post", formData, {headers} );
+    }
    }catch (e) {
       if (axios.isAxiosError(e) && e.response) {
         const { data } = e.response;

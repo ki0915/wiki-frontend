@@ -81,16 +81,17 @@ table             {
   }
 }   
 
-
-
-
-// body style
+html, body {
+  height: 100%;
+}
 
 body               { 
   background:#9BC86A; 
   font:400 14px 'Calibri','Arial';
-  padding:20px;
-  height: 1000;
+  margin: 0;
+  padding: 0;
+  height: 980px;
+
 }
 
 blockquote {

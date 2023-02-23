@@ -38,13 +38,14 @@ export class DocumentComponent {
         });
         const token = this.tokenService.token;
         const headers = { 'x-auth-token': token };
-       const { data } =  await axios.post("http://localhost:8080/article", {title: this.dumTitle}, {headers});
-       this.article1 = data.article.article1;
-       this.article2 = data.article.article2;
-       this.article3 = data.article.article3;
-       this.article4 = data.article.article4;
-       this.article5 = data.article.article5;
-       this.article6 = data.article.article6;
+       const { data } =  await axios.post("http://172.30.1.58:8080/article", {title: this.dumTitle}, {headers});
+       //줄 바꿈 적용 성공 로직 입력해서 줄바꿈 인식해서 <br> 태그 입력후 여기서 replace 그리고 innerHtml 띄워서 적용 성공
+       this.article1 = data.article.article1.replace(/<br>/g, '<br>');
+       this.article2 = data.article.article2.replace(/<br>/g, '<br>');
+       this.article3 = data.article.article3.replace(/<br>/g, '<br>');
+       this.article4 = data.article.article4.replace(/<br>/g, '<br>');
+       this.article5 = data.article.article5.replace(/<br>/g, '<br>');
+       this.article6 = data.article.article6.replace(/<br>/g, '<br>');
       
        this.oneTitle = data.article.onetitle;
        this.twoTitle = data.article.twotitle;
@@ -53,10 +54,9 @@ export class DocumentComponent {
        this.fiveTitle = data.article.fivetitle;
        this.sixTitle = data.article.sixtitle;
        
-       this.imageUrl = "http://localhost:8080/" + data.imagePath;
-       this.fileUrl = "http://localhost:8080/" + data.filePath;
+       this.imageUrl = "http://172.30.1.58:8080/" + data.imagePath;
+       this.fileUrl = "http://172.30.1.58:8080/" + data.filePath;
 
-       alert(this.imageUrl);
        
     } catch (e) {
       if (axios.isAxiosError(e) && e.response) {
@@ -84,12 +84,12 @@ export class DocumentComponent {
 
     deleteProcess = async () => {
       try {
-        await axios.post("http://localhost:8080/article/delete", { title: this.dumTitle});
+        await axios.post("http://172.30.1.58:8080/article/delete", { title: this.dumTitle});
      }catch (e) {
         if (axios.isAxiosError(e) && e.response) {
           const { data } = e.response;
           if (data) {
-            alert(data.message);
+            alert("게시글을 삭제하기 위해서는 권한 3 이상의 관리자여야 합니다.");
           }
         }
       }

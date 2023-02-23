@@ -46,7 +46,7 @@ export class ChatComponent {
       const token = this.tokenService.token;
       const headers = { 'x-auth-token': token };
       const { data } = await axios.post<chats[]>(
-        'http://localhost:8080/chats/view',   {
+        'http://172.30.1.58:8080/chats/view',   {
             roomTitle : this.dumTitle }, { headers }
       );
     

@@ -21,7 +21,7 @@ export class MainComponent {
 
     set filterText(v: string){
       this._filterText = v;
-      this.filteredDocuments = this.performFilter(v);
+      this.filteredDocuments = this.performFilter(v); 
     }
 
     constructor(private router:Router, private tokenService: TokenService, ) { this.ReadProcess()}
@@ -44,6 +44,11 @@ export class MainComponent {
         this.router.navigate(['/write'])
     }
 
+
+    backProcess (): void {
+      this.router.navigate(['/login'])
+  }
+
     chatProcess (title: string) {
         this.router.navigate(['/chat'], { queryParams: { title: title } });
     }
@@ -51,8 +56,9 @@ export class MainComponent {
     async ReadProcess (): Promise<void> {
       const token = this.tokenService.token;
       const headers = { 'x-auth-token': token };
-       const data = await axios.get("http://localhost:8080/article", {headers});
+       const data = await axios.get("http://172.30.1.58:8080/article", {headers});
        this.documents = data.data;
+       this.filteredDocuments = this.documents;
     }
 
 }

@@ -23,7 +23,7 @@ body               {
   background:#9BC86A; 
   font:400 14px 'Calibri','Arial';
   padding:20px;
-  height: 1300px;
+  height: 100%;
 }
 
 blockquote {
@@ -38,16 +38,17 @@ ol {
     margin: 40px; 
     padding: 0;
     font-family: sans-serif;
-    width: 800px;
+    width: 1000px;
     li {
       list-style:none; /* Disable the normal item numbering */
       position:relative; /* Create a positioning context */
       margin:0 0 16px 2em; /* Give each list item a left margin to make room for the numbers */
       padding:6px 18px; /* Add some spacing around the content */
       background: #FFED86;
+      height: 400px;
       &:before {
-          content:counter(li); /* Use the counter as content */
-          counter-increment:li; /* Increment the counter by 1 */
+           /* Use the counter as content */
+          /* Increment the counter by 1 */
           /* Position and style the number */
           position:absolute;
           top: -16px;
