@@ -205,7 +205,7 @@ export class WriteComponent {
 
       const body = { file: formData, };
      
-      await axios.post("http://172.30.1.58:8080/article/post", formData, {headers} );
+      await axios.post("http://172.30.1.46:8080/article/post", formData, {headers} );
     }
    }catch (e) {
       if (axios.isAxiosError(e) && e.response) {

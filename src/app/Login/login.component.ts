@@ -58,7 +58,7 @@ set signUpPw(v: string) {
   loginProcess = async () => {
     try {
       const hashLoginPw = CryptoJS.SHA256(this.loginPw).toString();
-      const response = await axios.post("http://172.30.1.58:8080/login", { id: this.loginId, password: hashLoginPw });
+      const response = await axios.post("http://172.30.1.46:8080/login", { id: this.loginId, password: hashLoginPw });
       this.tokenService.token = response.data.token;
       this.tokenService.name = this.loginId;
       this.router.navigate(['/main'])
@@ -92,7 +92,7 @@ set signUpPw(v: string) {
         alert(this.signUpPw);
         try {
           const hashSignUpPw = CryptoJS.SHA256(this.signUpPw).toString();
-          await axios.post("http://172.30.1.58:8080/signUp", { id: this.signUpId, password: hashSignUpPw });
+          await axios.post("http://172.30.1.46:8080/signUp", { id: this.signUpId, password: hashSignUpPw });
         }
         catch (e) {
           if (axios.isAxiosError(e) && e.response) {

@@ -9,7 +9,7 @@ export class WebSocketService {
   private socket: any;
 
   constructor() {
-    this.socket = io.connect('ws://172.30.1.58:8080/chats');
+    this.socket = io.connect('ws://172.30.1.46:8080/chats');
   }
   joinRoom(roomTitle: string): void {
     this.socket.emit('joinRoom', roomTitle);

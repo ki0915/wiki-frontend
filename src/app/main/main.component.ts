@@ -56,7 +56,7 @@ export class MainComponent {
     async ReadProcess (): Promise<void> {
       const token = this.tokenService.token;
       const headers = { 'x-auth-token': token };
-       const data = await axios.get("http://172.30.1.58:8080/article", {headers});
+       const data = await axios.get("http://172.30.1.46:8080/article", {headers});
        this.documents = data.data;
        this.filteredDocuments = this.documents;
     }
