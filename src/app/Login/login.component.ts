@@ -27,7 +27,6 @@ get signUpPw(): string {
 
  set signUpId(v: string) {
   this._signUpId = v;
-  console.log(v);
 }
 
 set signUpPw(v: string) {
@@ -44,7 +43,6 @@ set signUpPw(v: string) {
 
    set loginId(v: string) {
     this._loginId = v;
-    console.log(v);
   }
 
 
@@ -66,7 +64,6 @@ set signUpPw(v: string) {
       if (axios.isAxiosError(e) && e.response) {
         const { data } = e.response;
         if (data) {
-          alert(data.message);
         }
       }
     }

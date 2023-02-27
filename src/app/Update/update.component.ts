@@ -81,7 +81,21 @@ export class UpdateComponent {
 
   upDateProcess = async () => {
     try {
-      await axios.post("http://172.30.1.46:8080/article/update", { title: this.dumTitle, article1: this.article1, article2: this.article2, article3: this.article3, article4: this.article4, article5: this.article5, article6: this.article6 });
+      const formData = new FormData();
+      const token = this.tokenService.token;
+      const headers = { 'x-auth-token': token };
+
+      formData.append('title', this.title);
+      formData.append('article1', this.article1.replace(/\n/g, "<br>"));
+      formData.append('article2', this.article2.replace(/\n/g, "<br>"));
+      formData.append('article3', this.article3.replace(/\n/g, "<br>"));
+      formData.append('article4', this.article4.replace(/\n/g, "<br>"));
+      formData.append('article5', this.article5.replace(/\n/g, "<br>"));
+      formData.append('article6', this.article6.replace(/\n/g, "<br>"));
+
+  
+
+      await axios.post("http://172.30.1.46:8080/article/update", formData, {headers} );
    }catch (e) {
       if (axios.isAxiosError(e) && e.response) {
         const { data } = e.response;

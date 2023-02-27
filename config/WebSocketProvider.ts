@@ -9,21 +9,28 @@ export class WebSocketService {
   private socket: any;
 
   constructor() {
+    // socket 객체를 생성하고, 서버와 연결합니다.
     this.socket = io.connect('ws://172.30.1.46:8080/chats');
-  }
-  joinRoom(roomTitle: string): void {
-    this.socket.emit('joinRoom', roomTitle);
+
+    // "receiveMessage" 이벤트 리스너를 등록합니다.
+    this.socket.on("receiveMessage", (data: any) => {
+
+    });
   }
 
+  public joinRoom(chatTitle: string) {
+      this.socket.emit('joinRoom', chatTitle);
+  }
 
   public sendMessage(message: any) {
     this.socket.emit('sendMessage', message);
   }
 
-  public getMessage(): Observable<any> {
+  getMessage(roomTitle: string): Observable<any> {
     return new Observable(observer => {
-      this.socket.on('receiveMessage', (message: any) => {
-        observer.next(message);
+      // "receiveMessage" 이벤트 리스너를 등록합니다.
+      this.socket.on('receiveMessage', (data: any) => {
+        observer.next(data);
       });
     });
   }
