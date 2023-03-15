@@ -38,7 +38,7 @@ export class DocumentComponent {
         });
         const token = this.tokenService.token;
         const headers = { 'x-auth-token': token };
-       const { data } =  await axios.post("http://172.30.1.46:8080/article", {title: this.dumTitle}, {headers});
+       const { data } =  await axios.post("http://localhost:4200/api/article", {title: this.dumTitle}, {headers});
        //줄 바꿈 적용 성공 로직 입력해서 줄바꿈 인식해서 <br> 태그 입력후 여기서 replace 그리고 innerHtml 띄워서 적용 성공
        this.article1 = data.article.article1.replace(/<br>/g, '<br>');
        this.article2 = data.article.article2.replace(/<br>/g, '<br>');
@@ -54,8 +54,8 @@ export class DocumentComponent {
        this.fiveTitle = data.article.fivetitle;
        this.sixTitle = data.article.sixtitle;
        
-       this.imageUrl = "http://172.30.1.46:8080/" + data.imagePath;
-       this.fileUrl = "http://172.30.1.46:8080/" + data.filePath;
+       this.imageUrl = "http://localhost:4200/api" + data.imagePath;
+       this.fileUrl = "http://localhost:4200/api" + data.filePath;
 
        
     } catch (e) {
@@ -84,7 +84,7 @@ export class DocumentComponent {
 
     deleteProcess = async () => {
       try {
-        await axios.post("http://172.30.1.46:8080/article/delete", { title: this.dumTitle});
+        await axios.post("http://localhost:4200/api/article/delete", { title: this.dumTitle});
      }catch (e) {
         if (axios.isAxiosError(e) && e.response) {
           const { data } = e.response;

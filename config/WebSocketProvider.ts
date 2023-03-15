@@ -19,6 +19,7 @@ export class WebSocketService {
   }
 
   public joinRoom(chatTitle: string) {
+      alert(chatTitle);
       this.socket.emit('joinRoom', chatTitle);
   }
 

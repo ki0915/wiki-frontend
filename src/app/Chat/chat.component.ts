@@ -50,7 +50,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const token = this.tokenService.token;
     const headers = { 'x-auth-token': token };
     const { data } = await axios.post<chats[]>(
-      'http://172.30.1.46:8080/chats/view',
+      'http://localhost:4200/api/chats/view',
       { roomTitle: this.dumTitle },
       { headers }
     );

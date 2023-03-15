@@ -95,7 +95,7 @@ export class UpdateComponent {
 
   
 
-      await axios.post("http://172.30.1.46:8080/article/update", formData, {headers} );
+      await axios.post("http://localhost:4200/api/article/update", formData, {headers} );
    }catch (e) {
       if (axios.isAxiosError(e) && e.response) {
         const { data } = e.response;
@@ -115,7 +115,7 @@ export class UpdateComponent {
       });
       const token = this.tokenService.token;
       const headers = { 'x-auth-token': token };
-     const { data } =  await axios.post("http://172.30.1.46:8080/article", {title: this.dumTitle}, {headers});
+     const { data } =  await axios.post("http://localhost:4200/api/article", {title: this.dumTitle}, {headers});
      this.article1 = data.article1;
      this.article2 = data.article2;
      this.article3 = data.article3;
